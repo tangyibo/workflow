@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.flowable.org/test">
+  <process id="myProcess" name="My process" isExecutable="true">
+    <startEvent id="timerstartevent1" name="Timer start">
+      <timerEventDefinition>
+        <timeCycle>0 0/5 * * * ? *</timeCycle>
+      </timerEventDefinition>
+    </startEvent>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <parallelGateway id="parallelgateway1" name="Parallel Gateway"></parallelGateway>
+    <parallelGateway id="parallelgateway2" name="Parallel Gateway"></parallelGateway>
+    <serviceTask id="servicetask1" name="extract1" flowable:async="true" flowable:class="com.weishao.SpringFlowable.handlers.ServiceHandler1">
+	  <extensionElements>
+        <flowable:field name="param1">
+          <flowable:string><![CDATA[aaaaaaa]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="param2">
+          <flowable:string><![CDATA[bbbbbbbbbb]]></flowable:string>
+        </flowable:field>
+      </extensionElements>
+	</serviceTask>
+    <serviceTask id="servicetask2" name="extract3" flowable:async="true" flowable:class="com.weishao.SpringFlowable.handlers.ServiceHandler2">
+	  <extensionElements>
+        <flowable:field name="param1">
+          <flowable:string><![CDATA[ccccccccccc]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="param2">
+          <flowable:string><![CDATA[ddddddddddd]]></flowable:string>
+        </flowable:field>
+      </extensionElements>
+	</serviceTask>
+    <serviceTask id="servicetask3" name="extract2" flowable:async="true" flowable:class="com.weishao.SpringFlowable.handlers.ServiceHandler3">
+	  <extensionElements>
+        <flowable:field name="param1">
+          <flowable:string><![CDATA[eeeeeeeeeee]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="param2">
+          <flowable:string><![CDATA[fffffffffff]]></flowable:string>
+        </flowable:field>
+      </extensionElements>
+	</serviceTask>
+    <serviceTask id="servicetask4" name="standard" flowable:async="true" flowable:class="com.weishao.SpringFlowable.handlers.ServiceHandler4">
+	  <extensionElements>
+        <flowable:field name="param1">
+          <flowable:string><![CDATA[ggggggggg]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="param2">
+          <flowable:string><![CDATA[hhhhhhhhhhhhh]]></flowable:string>
+        </flowable:field>
+      </extensionElements>
+	</serviceTask>
+    <serviceTask id="servicetask5" name="clean" flowable:async="true" flowable:class="com.weishao.SpringFlowable.handlers.ServiceHandler5">
+	  <extensionElements>
+        <flowable:field name="param1">
+          <flowable:string><![CDATA[iiiiiiiiiii]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="param2">
+          <flowable:string><![CDATA[jjjjjjjjjjjjjj]]></flowable:string>
+        </flowable:field>
+      </extensionElements>
+	</serviceTask>
+    <sequenceFlow id="flow1" sourceRef="timerstartevent1" targetRef="parallelgateway1"></sequenceFlow>
+    <sequenceFlow id="flow2" sourceRef="parallelgateway1" targetRef="servicetask1"></sequenceFlow>
+    <sequenceFlow id="flow3" sourceRef="parallelgateway1" targetRef="servicetask3"></sequenceFlow>
+    <sequenceFlow id="flow4" sourceRef="servicetask3" targetRef="parallelgateway2"></sequenceFlow>
+    <sequenceFlow id="flow5" sourceRef="parallelgateway2" targetRef="servicetask4"></sequenceFlow>
+    <sequenceFlow id="flow6" sourceRef="servicetask4" targetRef="servicetask5"></sequenceFlow>
+    <sequenceFlow id="flow7" sourceRef="servicetask5" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flow8" sourceRef="parallelgateway1" targetRef="servicetask2"></sequenceFlow>
+    <sequenceFlow id="flow9" sourceRef="servicetask1" targetRef="parallelgateway2"></sequenceFlow>
+    <sequenceFlow id="flow10" sourceRef="servicetask2" targetRef="parallelgateway2"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_myProcess">
+    <bpmndi:BPMNPlane bpmnElement="myProcess" id="BPMNPlane_myProcess">
+      <bpmndi:BPMNShape bpmnElement="timerstartevent1" id="BPMNShape_timerstartevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="70.0" y="243.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="1190.0" y="243.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="parallelgateway1" id="BPMNShape_parallelgateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="180.0" y="240.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="parallelgateway2" id="BPMNShape_parallelgateway2">
+        <omgdc:Bounds height="40.0" width="40.0" x="590.0" y="237.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="360.0" y="120.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
+        <omgdc:Bounds height="55.0" width="105.0" x="360.0" y="340.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask3" id="BPMNShape_servicetask3">
+        <omgdc:Bounds height="55.0" width="105.0" x="360.0" y="230.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask4" id="BPMNShape_servicetask4">
+        <omgdc:Bounds height="55.0" width="105.0" x="740.0" y="230.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask5" id="BPMNShape_servicetask5">
+        <omgdc:Bounds height="55.0" width="105.0" x="960.0" y="230.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="105.0" y="260.0"></omgdi:waypoint>
+        <omgdi:waypoint x="180.0" y="260.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="200.0" y="240.0"></omgdi:waypoint>
+        <omgdi:waypoint x="200.0" y="147.0"></omgdi:waypoint>
+        <omgdi:waypoint x="360.0" y="147.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="220.0" y="260.0"></omgdi:waypoint>
+        <omgdi:waypoint x="360.0" y="257.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="465.0" y="257.0"></omgdi:waypoint>
+        <omgdi:waypoint x="590.0" y="257.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="630.0" y="257.0"></omgdi:waypoint>
+        <omgdi:waypoint x="740.0" y="257.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="845.0" y="257.0"></omgdi:waypoint>
+        <omgdi:waypoint x="960.0" y="257.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="1065.0" y="257.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1190.0" y="260.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="200.0" y="280.0"></omgdi:waypoint>
+        <omgdi:waypoint x="200.0" y="367.0"></omgdi:waypoint>
+        <omgdi:waypoint x="360.0" y="367.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="465.0" y="147.0"></omgdi:waypoint>
+        <omgdi:waypoint x="610.0" y="147.0"></omgdi:waypoint>
+        <omgdi:waypoint x="610.0" y="237.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="465.0" y="367.0"></omgdi:waypoint>
+        <omgdi:waypoint x="610.0" y="367.0"></omgdi:waypoint>
+        <omgdi:waypoint x="610.0" y="277.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
