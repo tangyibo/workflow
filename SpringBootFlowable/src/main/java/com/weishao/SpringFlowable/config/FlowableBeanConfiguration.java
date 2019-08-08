@@ -26,7 +26,8 @@ public class FlowableBeanConfiguration {
 		//为引擎注册全局监听器
 		List<FlowableEventListener> eventListeners=new ArrayList<FlowableEventListener>();
 		eventListeners.add(new MyProcessEventListener() );
-		configuration.setEventListeners(eventListeners);
+		configuration.setEventListeners(eventListeners);//设置监听器
+		configuration.setClock(new MyDefaultClock());//设置时钟
 		return configuration.buildProcessEngine();
 	}
 
